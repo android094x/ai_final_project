@@ -1,0 +1,29 @@
+.Sidebar {
+  width: 20vw;
+  background-color: #cecece47;
+  
+  .title {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 5px 0;
+  }
+  .coord {
+    width: 100%;
+    font-size: 12px;
+    border-bottom: 1px solid black;
+    .opt {
+      padding: 5px;
+    }
+  }
+
+  .btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20vw;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    background-color: coral;
+  }
+}
