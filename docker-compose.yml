@@ -1,0 +1,17 @@
+version: '3'   # se establece la version de docker compose que se va a usar 
+services:
+  back:
+    build: backend/src
+
+    ports:
+      - "5000:5000"
+    volumes: 
+        - ./backend/src/:/code
+
+#front:
+#    build: frontend/
+#    ports: 
+#      - "3000:3000"
+#    volumes: 
+#      - ./frontend/
+
