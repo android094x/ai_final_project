@@ -4,11 +4,11 @@ import string
 import math
 import numpy as np
 import random
-import json
+from pymongo import MongoClient
 app = Flask(__name__)
 CORS(app)
 
-from pymongo import MongoClient
+
 
 client = MongoClient('mongo',username='root',password='uno')
 db = client['api_data']
@@ -73,12 +73,12 @@ def api():
             return solution, distance
         
         solution = []
-        random_pos =  np.random.randint(0,len(adj_matrix)-1)
-        solution.append(random_pos)
+        initial_pos = 0
+        solution.append(initial_pos)
         for i in range(len(adj_matrix)-1):
-            if(i != random_pos):
+            if(i != initial_pos):
                 solution.append(i)
-            solution.append(random_pos)
+            solution.append(len(adj_matrix) -1)
         
         lat = json_data['latitudes']
         lng = json_data['longitudes']
@@ -86,8 +86,6 @@ def api():
             return {'error':'se necesitan minimo 3 distancias '},400
         optimal,x = recocido(solution,adj_matrix)
         new_optimal = []
-        lat = json_data['latitudes']
-        lng = json_data['longitudes']
         for i in range(len(lat)):
             i_aux = optimal[i]
             coor = { 
@@ -96,10 +94,9 @@ def api():
                     }
             new_optimal.append([coor])
         print(len(optimal))
-        response =  {'route':str(optimal),'route2': new_optimal,'distances':x},200
         Json =  {'route':str(optimal),'route2': new_optimal,'distances':x}
         r = db_data.insert_one(Json)
-        return str(r.inserted_id)
+        return {'ok':'saved'},201
     else:
         r = list( db_data.find({},{"_id" :0}) )
         try:

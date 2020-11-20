@@ -4,9 +4,14 @@ import string
 import math
 import numpy as np
 import random
-
+from pymongo import MongoClient
 app = Flask(__name__)
 CORS(app)
+
+client = MongoClient('mongo',username='root',password='uno')
+db = client['api_data']
+db_data = db['routes']
+
 
 @app.route('/coords',methods=['GET','POST'])
 def api():
@@ -174,14 +179,19 @@ def api():
                     }
             new_optimal.append([coor])
         print(len(optimal))
-        response =  {'route':str(optimal),'route2': new_optimal,'distances':x},200
-        print(response)
-        return response
+        Json =  {'route':str(optimal),'route2': new_optimal,'distances':x}
+        r = db_data.insert_one(Json)
+        return {'ok':'saved'},201
     else:
-        return 'no get method'
+        r = list( db_data.find({},{"_id" :0}) )
+        try:
+            response = r[-1]
+        except:
+            return {'error':'aun no hay datos'}
+        return jsonify(response)
 
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+#    app.run(debug=True)
