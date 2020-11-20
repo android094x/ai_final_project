@@ -171,7 +171,7 @@ def api():
         new_optimal = []
         lat = json_data['latitudes']
         lng = json_data['longitudes']
-        for i in range(len(lat)):
+        for i in range(len(lat)+1):
             i_aux = optimal[i]
             coor = { 
                     'lat':lat[i_aux],
