@@ -10,7 +10,6 @@ CORS(app)
 
 @app.route('/coords',methods=['GET','POST'])
 def api():
-    response = {'test':'test'}
     if request.method == 'POST':
         try:
             json_data = request.get_json()
@@ -175,11 +174,14 @@ def api():
                     }
             new_optimal.append([coor])
         print(len(optimal))
-        response = {'route':str(optimal),'route2': new_optimal,'distances':x},200
+        response =  {'route':str(optimal),'route2': new_optimal,'distances':x},200
         print(response)
         return response
     else:
         return 'no get method'
 
-#if __name__ == '__main__':
-#    app.run(debug=True)
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

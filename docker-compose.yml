@@ -1,14 +1,29 @@
 version: '3'   # se establece la version de docker compose que se va a usar 
 services:
   back:
+    container_name: api
     build: backend/src
 
     ports:
       - "5000:5000"
     volumes: 
-        - ./backend/src/:/code
+      - ./backend/src/:/code
+    depends_on: 
+      - mongo
+    links: 
+      - mongo  
 
-#front:
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: uno
+  
+  
+  
+        #front:
 #    build: frontend/
 #    ports: 
 #      - "3000:3000"
