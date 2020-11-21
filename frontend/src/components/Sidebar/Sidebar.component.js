@@ -4,7 +4,7 @@ import L from 'leaflet';
 import 'leaflet-routing-machine';
 import axios from 'axios';
 
-const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit, setRoute }) => {
+const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit, setRoute, loading, setLoading }) => {
   const handleCalculateRoute = async (e) => {
     e.preventDefault();
     const responseCoords = [];
@@ -21,6 +21,7 @@ const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit, setRoute }) =>
 
   const handleCalculateDistance = async (e) => {
     e.preventDefault();
+    setLoading(!loading);
     const tempAdjMatrix = [];
     for (const coord of coords) {
       const actualPosition = {
@@ -79,7 +80,7 @@ const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit, setRoute }) =>
           Calculate Distance
         </button>
       ) : (
-        <button onClick={handleCalculateRoute} className="btn">Calculate Route</button>
+        <button onClick={handleCalculateRoute} className="btn alt">Calculate Route</button>
       )}
     </div>
   );

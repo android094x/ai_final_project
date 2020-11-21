@@ -4,6 +4,7 @@ import './App.css';
 
 import MapView from './components/MapView/MapView.component';
 import Sidebar from './components/Sidebar/Sidebar.component';
+import Loading from './components/Loading/Loading.component';
 
 const App = () => {
   const [coords, setCoords] = useState([]);
@@ -13,6 +14,7 @@ const App = () => {
   const [adjMatrix, setAdjMatrix] = useState([]);
   const [map, setMap] = useState(null);
   const [isMapInit, setIsMapInit] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setAdjMatrix([]);
@@ -22,6 +24,7 @@ const App = () => {
 
   useEffect(() => {
     if (adjMatrix.length > 0) {
+      setLoading(!loading);
       axios.post('http://localhost:5000/coords', {
         adjMatrix: adjMatrix,
         latitudes: lat,
@@ -32,6 +35,7 @@ const App = () => {
 
   return (
     <div className="App">
+      { loading ? <Loading /> : null }
       <MapView
         initialLat={10.39972}
         initialLng={-75.51444}
@@ -54,6 +58,8 @@ const App = () => {
         adjMatrix={adjMatrix}
         setIsMapInit={setIsMapInit}
         setRoute={setRoute}
+        loading={loading}
+        setLoading={setLoading}
       />
     </div>
   );
