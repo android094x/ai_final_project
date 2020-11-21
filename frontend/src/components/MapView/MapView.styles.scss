@@ -3,6 +3,23 @@
   height: 100vh;
 }
 
-.leaflet-control-container .leaflet-routing-container {
+.leaflet-top.leaflet-right {
+  width: 500px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.leaflet-top.leaflet-right div{
   display: none;
+}
+
+.leaflet-top.leaflet-right div:first-child{
+  display: block;
+  max-height: 95vh;
+  overflow: auto;
+}
+
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+  background-color: #20160877;
+  color: #cecece;
 }

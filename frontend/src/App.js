@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar/Sidebar.component';
 
 const App = () => {
   const [coords, setCoords] = useState([]);
+  const [route, setRoute] = useState([]);
   const [lng, setLng] = useState([]);
   const [lat, setLat] = useState([]);
   const [adjMatrix, setAdjMatrix] = useState([]);
@@ -16,6 +17,7 @@ const App = () => {
   useEffect(() => {
     setAdjMatrix([]);
     setIsMapInit(false);
+    console.log(coords)
   }, [coords]);
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const App = () => {
         setLat={setLat}
         setLng={setLng}
         setMap={setMap}
+        route={route}
       />
       <Sidebar
         map={map}
@@ -50,6 +53,7 @@ const App = () => {
         setAdjMatrix={setAdjMatrix}
         adjMatrix={adjMatrix}
         setIsMapInit={setIsMapInit}
+        setRoute={setRoute}
       />
     </div>
   );

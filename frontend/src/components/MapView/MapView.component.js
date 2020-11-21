@@ -18,7 +18,8 @@ const MapView = ({
   setLng,
   setLat,
   setMap,
-  isMapInit
+  isMapInit,
+  route
 }) => {
   const handleMapClick = (e) => {
     let actualCoords = [];
@@ -68,7 +69,7 @@ const MapView = ({
             onClick={handleMarkerClick}
           />
         ))}
-        {isMapInit && <Routing map={map} coords={coords} />}
+        {isMapInit && <Routing map={map} route={route} />}
       </Map>
     </div>
   );

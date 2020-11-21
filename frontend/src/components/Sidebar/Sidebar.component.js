@@ -2,8 +2,23 @@ import React from 'react';
 import './Sidebar.styles.scss';
 import L from 'leaflet';
 import 'leaflet-routing-machine';
+import axios from 'axios';
 
-const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit }) => {
+const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit, setRoute }) => {
+  const handleCalculateRoute = async (e) => {
+    e.preventDefault();
+    const responseCoords = [];
+    const { data } = await axios.get('http://localhost:5000/coords');
+    
+    for (const coord of data.route2){
+      responseCoords.push([coord[0].lat, coord[0].lng])
+    };
+    console.log(data)
+    console.log(responseCoords)
+    setRoute(responseCoords)
+    setIsMapInit(true);
+  };
+
   const handleCalculateDistance = async (e) => {
     e.preventDefault();
     const tempAdjMatrix = [];
@@ -15,7 +30,6 @@ const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit }) => {
       const result = await createAdjMatrix(actualPosition, coords);
       tempAdjMatrix.push(result);
     }
-    setIsMapInit(true);
     setAdjMatrix(tempAdjMatrix);
   };
 
@@ -65,7 +79,7 @@ const Sidebar = ({ coords, setAdjMatrix, adjMatrix, setIsMapInit }) => {
           Calculate Distance
         </button>
       ) : (
-        <button className="btn">Calculate Route</button>
+        <button onClick={handleCalculateRoute} className="btn">Calculate Route</button>
       )}
     </div>
   );

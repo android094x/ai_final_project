@@ -4,13 +4,13 @@ import 'leaflet-routing-machine';
 
 class Routing extends MapLayer {
   createLeafletElement() {
-    const { map, coords } = this.props;
+    const { map, route } = this.props;
     let waypoints = [];
-    for (const coord of coords) {
-      waypoints.push(L.latLng(coord[0], coord[1]));
+    if(route.length !== 0) {
+      for (const r of route) {
+        waypoints.push(L.latLng(r[0], r[1]));
+      }
     }
-
-    console.log(map);
 
     let leafletElement = L.Routing.control({
       waypoints: waypoints,
