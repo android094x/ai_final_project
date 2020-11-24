@@ -146,7 +146,7 @@ def api():
 
 
         tour = []
-        actual_position= 0
+        actual_position = 0
         tour.append(actual_position)
         tour = trace_route(actual_position,tour)
         tour.append(tour[0])
@@ -155,7 +155,7 @@ def api():
 
         for i in range(100):
           tour = []
-          actual_position= np.random.randint(0,len(adj_matrix)-1)
+          actual_position= 0
           tour.append(actual_position)
           tour = trace_route(actual_position,tour)
           tour.append(tour[0])
