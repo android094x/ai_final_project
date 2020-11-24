@@ -11,7 +11,19 @@ services:
     depends_on: 
       - mongo
     links: 
-      - mongo  
+      - mongo
+  
+  front:
+    container_name: front
+    build: frontend
+    stdin_open: true
+    ports: 
+        - "3000:3000"
+    depends_on: 
+      - back
+    volumes: 
+        - ./frontend/:/app
+        - /app/node_modules
 
   mongo:
     container_name: mongo
@@ -23,10 +35,3 @@ services:
   
   
   
-        #front:
-#    build: frontend/
-#    ports: 
-#      - "3000:3000"
-#    volumes: 
-#      - ./frontend/
-
