@@ -1,0 +1,1 @@
+docker stop front api mongo
